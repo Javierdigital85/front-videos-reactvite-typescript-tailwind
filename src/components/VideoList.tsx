@@ -27,7 +27,7 @@ const VideoList = () => {
   return (
     <div className="container mx-auto p-4">
       {loading ? (
-        <p className="text-gray-500">Loading videos...</p>
+        <p className="text-gray-500 flex items-center justify-center h-screen text-xl">Loading videos...</p>
       ) : videos.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
           {videos.map((video) => (
