@@ -25,7 +25,7 @@ const VideoList = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 mt-5">
       {loading ? (
         <p className="text-gray-500 flex items-center justify-center h-screen text-xl">
           Loading videos...
