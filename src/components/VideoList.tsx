@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Video } from "../interfaces/Video";
 import VideoItem from "./VideoItem";
 import { Link } from "react-router-dom";
-const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
+const URL = import.meta.env.VITE_BACKEND_URL;
 const VideoList = () => {
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +27,9 @@ const VideoList = () => {
   return (
     <div className="container mx-auto p-4">
       {loading ? (
-        <p className="text-gray-500 flex items-center justify-center h-screen text-xl">Loading videos...</p>
+        <p className="text-gray-500 flex items-center justify-center h-screen text-xl">
+          Loading videos...
+        </p>
       ) : videos.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
           {videos.map((video) => (

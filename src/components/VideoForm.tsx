@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 type inputChange = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
-const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"
+const URL = import.meta.env.VITE_BACKEND_URL 
 const VideoForm = () => {
   const params = useParams();
   const navigate = useNavigate();

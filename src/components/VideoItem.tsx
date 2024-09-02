@@ -3,7 +3,7 @@ import { Video } from "../interfaces/Video";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"
+const URL = import.meta.env.VITE_BACKEND_URL 
 interface Props {
   video: Video;
   loadVideo: () => void;
