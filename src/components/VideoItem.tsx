@@ -3,7 +3,7 @@ import { Video } from "../interfaces/Video";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"
 interface Props {
   video: Video;
   loadVideo: () => void;
@@ -12,7 +12,7 @@ interface Props {
 const VideoItem = ({ video, loadVideo }: Props) => {
   const navigate = useNavigate();
   const handleDelete = async (id: number) => {
-    await axios.delete(`http://localhost:8000/api/videos/video/${id}`);
+    await axios.delete(`${URL}/api/videos/video/${id}`);
     loadVideo();
     toast.success("Video Deleted!")
   };

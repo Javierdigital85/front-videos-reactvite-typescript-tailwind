@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { Video } from "../interfaces/Video";
 import VideoItem from "./VideoItem";
 import { Link } from "react-router-dom";
-
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
 const VideoList = () => {
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
 
   const loadVideos = async () => {
     try {
-      const res = await axios.get("http://localhost:8000/api/videos/videos");
+      const res = await axios.get(`${URL}/api/videos/videos`);
       setVideos(res.data);
       console.log(res.data);
     } catch (error) {
@@ -29,7 +29,7 @@ const VideoList = () => {
       {loading ? (
         <p className="text-gray-500">Loading videos...</p>
       ) : videos.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
           {videos.map((video) => (
             <VideoItem video={video} key={video.id} loadVideo={loadVideos} />
           ))}

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 type inputChange = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
-
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000"
 const VideoForm = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -25,7 +25,10 @@ const VideoForm = () => {
     e.preventDefault();
     if (!videoId) {
       try {
-        await axios.post("http://localhost:8000/api/videos/video", video);
+        await axios.post(
+          `${URL}/api/videos/video`,
+          video
+        );
         toast.success("New video added!");
         navigate("/");
       } catch (error) {
@@ -34,7 +37,7 @@ const VideoForm = () => {
     } else {
       try {
         await axios.put(
-          `http://localhost:8000/api/videos/video/${videoId}`,
+          `${URL}/api/videos/video/${videoId}`,
           video
         );
         navigate("/");
@@ -45,7 +48,9 @@ const VideoForm = () => {
     }
   };
   const getVideo = async (id: number) => {
-    const res = await axios.get(`http://localhost:8000/api/videos/video/${id}`);
+    const res = await axios.get(
+      `${URL}/api/videos/video/${id}`
+    );
     const { title, url, description } = res.data;
     setVideo({ title, url, description });
   };
