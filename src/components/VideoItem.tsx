@@ -1,9 +1,11 @@
 import axios from "axios";
 import { Video } from "../interfaces/Video";
-import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-const URL = import.meta.env.VITE_BACKEND_URL 
+import "@justinribeiro/lite-youtube";
+import LiteYoutube from "./LiteYoutube";
+
+const URL = import.meta.env.VITE_BACKEND_URL;
 interface Props {
   video: Video;
   loadVideo: () => void;
@@ -14,8 +16,18 @@ const VideoItem = ({ video, loadVideo }: Props) => {
   const handleDelete = async (id: number) => {
     await axios.delete(`${URL}/api/videos/video/${id}`);
     loadVideo();
-    toast.success("Video Deleted!")
+    toast.success("Video Deleted!");
   };
+
+  // Función para extraer el ID del video desde la URL de YouTube
+  const getYoutubeVideoId = (url: string) => {
+    const regex =
+      /(?:youtube\.com\/(?:[^/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  };
+  const videoId = getYoutubeVideoId(video.url);
+
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden">
       <div className="p-4 rounded-lg">
@@ -38,12 +50,15 @@ const VideoItem = ({ video, loadVideo }: Props) => {
         </div>
         <h2 className="text-gray-700 mb-4">{video.description}</h2>
         <div className="relative pt-[56.25%]mt-4">
-          <ReactPlayer
-            url={video.url}
-            width="100%"
-            height="300px"
-            controls={true}
-          />
+          {videoId ? (
+            <LiteYoutube
+              videoid={videoId}
+              videotitle={video.title}
+              posterquality="maxresdefault"
+            />
+          ) : (
+            <p className="text-red-500">Invalid YouTube URL</p>
+          )}
         </div>
       </div>
     </div>
