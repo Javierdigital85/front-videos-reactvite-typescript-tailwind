@@ -1,0 +1,96 @@
+import { ChangeEvent, FormEvent, useState } from "react";
+import astronaut from "../assets/astro1.webp";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
+const URL = import.meta.env.VITE_BACKEND_URL;
+const Register = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      await axios.post(`${URL}/api/users/register`, user);
+      toast.success("You have Registered!");
+      navigate("/");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data || "An error occured";
+        toast.warning(errorMessage);
+      } else {
+        toast.warning("An unexpected error occured!");
+      }
+    }
+  };
+
+  return (
+    <div className="flex justify-center text-2xl h-screen items-center">
+      <div className="bg-black h-screen flex flex-col justify-center items-center w-full">
+        <h1 className="text-white text-7xl font-lato">
+          Join the universe Music!
+        </h1>
+
+        <div className="p-3">
+          <img src={astronaut} alt="" className="rounded-full h-80 w-80" />
+        </div>
+
+        <p className="text-white mt-2 font">
+          Get access to your personal library!
+        </p>
+      </div>
+
+      <div className=" bg-green-900 h-screen flex items-center w-full justify-center">
+        <form
+          onSubmit={handleSubmit}
+          className="p-4 max-w-md rounded-md border font-lato"
+        >
+          <h2 className="text-white flex justify-center mb-2">Register</h2>
+          <input
+            type="text"
+            placeholder="name"
+            className="border w-full p-2 px-3 rounded-lg mb-2"
+            onChange={handleChange}
+            name="name"
+            value={user.name}
+            autoFocus
+          />
+          <input
+            type="text"
+            placeholder="email"
+            className="border w-full p-2 px-3 rounded-lg mb-2"
+            onChange={handleChange}
+            name="email"
+            value={user.email}
+          />
+          <input
+            type="text"
+            placeholder="password"
+            className="border w-full p-2 px-3 rounded-lg mb-2"
+            onChange={handleChange}
+            name="password"
+            value={user.password}
+          />
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="border bg-blue-600 p-2 hover:bg-blue-500 rounded-md text-white w-full"
+            >
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Register;

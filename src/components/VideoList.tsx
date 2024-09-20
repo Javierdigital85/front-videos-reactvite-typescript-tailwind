@@ -1,31 +1,46 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Video } from "../interfaces/Video";
 import VideoItem from "./VideoItem";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const URL = import.meta.env.VITE_BACKEND_URL;
+interface User {
+  id: number;
+  name: string;
+}
+interface RootState {
+  user: User;
+}
+
 const VideoList = () => {
+  const user = useSelector((state: RootState) => state.user);
+  const userId = user.id;
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const loadVideos = async () => {
+  const loadVideos = useCallback(async () => {
     try {
-      const res = await axios.get(`${URL}/api/videos/videos`);
-      setVideos(res.data);
-      console.log(res.data);
+      if (userId) {
+        const res = await axios.get(`${URL}/api/videos/videos`, {
+          params: { userId: userId },
+          withCredentials: true,
+        });
+        setVideos(res.data);
+      }
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId]);
 
   useEffect(() => {
     loadVideos();
-  }, []);
+  }, [loadVideos]);
 
   return (
-    <div className="container mx-auto p-4 mt-5">
+    <div className="container mx-auto mt-5 p-10">
       {loading ? (
         <p className="text-gray-500 flex items-center justify-center h-screen text-xl">
           Loading videos...
@@ -37,9 +52,9 @@ const VideoList = () => {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col justify-center items-center h-40">
-          <p className="text-gray-500 mb-4">
-            No videos available. Add a new video to get started!
+        <div className="flex flex-col justify-center items-center h-screen">
+          <p className="text-white mb-4 text-6xl">
+            Add a new video to get started!
           </p>
           <Link
             to="/video-form"
@@ -54,3 +69,12 @@ const VideoList = () => {
 };
 
 export default VideoList;
+// try {
+//   const res = await axios.get(`${URL}/api/videos/videos`);
+//   setVideos(res.data);
+//   console.log(res.data);
+// } catch (error) {
+//   console.log(error);
+// } finally {
+//   setLoading(false);
+// }

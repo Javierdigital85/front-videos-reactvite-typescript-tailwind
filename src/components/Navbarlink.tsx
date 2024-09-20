@@ -1,14 +1,19 @@
 import { Link } from "react-router-dom";
+import { MouseEvent } from "react";
 interface Props {
   link: string;
   linkTo: string;
   setNavbarOpen?: (open: boolean) => void;
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 }
 
-const Navbarlink = ({ link, linkTo, setNavbarOpen }: Props) => {
-  const handleClick = () => {
+const Navbarlink = ({ link, linkTo, setNavbarOpen, onClick }: Props) => {
+  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (setNavbarOpen) {
       setNavbarOpen(false);
+    }
+    if (onClick) {
+      onClick(e);
     }
   };
   return (
