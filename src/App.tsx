@@ -44,7 +44,7 @@ function App() {
             <Route path="/videolist" element={<VideoList />} />
             <Route path="/video-form" element={<VideoForm />} />
             <Route path="/video-form/:id" element={<VideoForm />} />
-            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route
               path="/repeat-password/:token"
               element={<RepeatPassword />}
