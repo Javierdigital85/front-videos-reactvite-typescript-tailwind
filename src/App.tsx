@@ -14,8 +14,6 @@ import { setUser } from "./redux/user";
 import ForgotPassword from "./components/ForgotPassword";
 import RepeatPassword from "./components/RepeatPassword";
 
-const URL_FRON_RENDER = import.meta.env.FRONTEND_URL;
-
 function App() {
   const dispatch = useDispatch();
 
@@ -48,7 +46,7 @@ function App() {
             <Route path="/video-form/:id" element={<VideoForm />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
             <Route
-              path={`${URL_FRON_RENDER}/repeat-password/:token`}
+              path="/repeat-password/:token"
               element={<RepeatPassword />}
             />
           </Routes>
