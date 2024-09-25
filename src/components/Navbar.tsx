@@ -34,8 +34,9 @@ const Navbar = () => {
       );
       console.log("Server response:", res.data);
       dispatch(setUser({ id: 0 }));
-      navigate("/");
       toast.success("You have logout!");
+      navigate("/");
+      setNavbarOpen(false);
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         // Si el error es una respuesta de Axios
@@ -67,6 +68,7 @@ const Navbar = () => {
     <nav className="fixed mx-auto border border-[#33353F] top-0 left-0 right-0 z-10 bg-[#263285] bg-opacity-100">
       <div className="container mx-auto items-center flex justify-between text-white text-2xl shadow-lg p-2 font-lato">
         <div>{user.id ? <Link to={"/videolist"}>Home</Link> : ""}</div>
+        {/* pantalla chica */}
         <div className="block md:hidden">
           {!navbarOpen ? (
             <button
@@ -84,7 +86,7 @@ const Navbar = () => {
             </button>
           )}
         </div>
-
+        {/* pantalla mediano a grande */}
         <div className="hidden md:block md:w-auto">
           <ul className="flex p-4 md:p-0 md:flex-row mt-0">
             {navLinks.map((link) => (
@@ -92,14 +94,15 @@ const Navbar = () => {
                 key={link.path}
                 link={link.newVideo}
                 linkTo={link.path}
-                onClick={link.onClick ? link.onClick : undefined}
+                onClick={link.onClick}
               />
             ))}
           </ul>
         </div>
       </div>
+      {/* pantallas pequeñas */}
       {navbarOpen ? (
-        <NavbarMenu links={navLinks} setNavbarOpen={setNavbarOpen} />
+        <NavbarMenu links={navLinks} setNavbarOpen={setNavbarOpen} logout={logout}/>
       ) : null}
     </nav>
   );

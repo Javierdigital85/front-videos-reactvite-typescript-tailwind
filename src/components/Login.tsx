@@ -5,14 +5,22 @@ import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUser } from "../redux/user";
+import openEye from "../assets/OpenEye.svg";
+import closeEye from "../assets/Eye.svg";
+
 const URL = import.meta.env.VITE_BACKEND_URL;
 const Login = () => {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
+  const [eye, setEye] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const handleClick = () => {
+    setEye(!eye);
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -20,13 +28,9 @@ const Login = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        `${URL}/api/users/login`,
-        userData,
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.post(`${URL}/api/users/login`, userData, {
+        withCredentials: true,
+      });
       dispatch(setUser(res.data));
       toast.success("You have loggin!");
       navigate("/videolist");
@@ -41,42 +45,52 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center text-2xl h-screen items-center">
-      <div className="bg-black h-screen flex flex-col justify-center items-center w-full">
-        <h1 className="text-white text-7xl font-lato">
+    <div className="flex flex-col justify-center text-2xl h-screen items-center mt-10">
+      <div className="bg-black h-screen flex flex-col justify-center items-center w-full mb-10">
+        <h1 className="text-white text-4xl md:text-8xl font-lato text-center mt-20">
           Welcome to universe Music!
         </h1>
         <div className="p-3">
           <img src={astronaut} alt="" className="rounded-full h-80 w-80" />
         </div>
-        <p className="text-white mt-2 font">
-          Once registered you can Sign up and start storing you videos.
+        <p className="text-white mt-2 font text-center">
+          Once registered you can Sign up and start storing your videos.
         </p>
-        <p className="text-white font-gothic text-6xl mt-10">Have fun</p>
       </div>
       <div className=" bg-green-900 h-screen flex items-center w-full justify-center">
         <form
           onSubmit={handleSubmit}
-          className="p-4 rounded-md  font-lato h-96"
+          className="p-4 rounded-md font-lato h-96 max-w-3xl w-full"
         >
           <h2 className="text-white flex justify-center mb-3 text-6xl">
             Sign Up
           </h2>
           <input
-            type="text"
+            type="email"
             placeholder="email"
-            className="border w-full p-2 px-3 rounded-lg mb-3"
+            className="w-full p-2 rounded-lg mb-3"
             name="email"
             onChange={handleChange}
             autoFocus
+            required
           />
-          <input
-            type="text"
-            placeholder="password"
-            className="border w-full p-2 px-3 rounded-lg mb-3"
-            name="password"
-            onChange={handleChange}
-          />
+          <div className="relative">
+            <input
+              type={eye ? "text" : "password"}
+              placeholder="password"
+              className="border w-full p-2 px-3 rounded-lg mb-3"
+              name="password"
+              onChange={handleChange}
+              required
+            />
+            <div
+              className="absolute inset-y-1 right-0 pr-3 mb-3 flex items-center cursor-pointer"
+              onClick={handleClick}
+            >
+              {eye ? <img src={openEye} /> : <img src={closeEye} />}
+            </div>
+          </div>
+
           <div className="flex justify-center">
             <button
               type="submit"
@@ -86,11 +100,10 @@ const Login = () => {
             </button>
           </div>
           <div className="mt-2">
-          <Link to={"forgot-password"} className="text-white">
-            Forgot password?
-          </Link>
+            <Link to={"forgot-password"} className="text-white">
+              Forgot password?
+            </Link>
           </div>
-       
         </form>
       </div>
     </div>

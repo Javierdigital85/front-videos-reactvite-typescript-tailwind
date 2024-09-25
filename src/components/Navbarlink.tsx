@@ -9,6 +9,7 @@ interface Props {
 
 const Navbarlink = ({ link, linkTo, setNavbarOpen, onClick }: Props) => {
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    //cierra el menú cuando se hace clic en un enlace en pantallas pequeñas 
     if (setNavbarOpen) {
       setNavbarOpen(false);
     }

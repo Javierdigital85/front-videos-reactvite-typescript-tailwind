@@ -33,43 +33,48 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center text-2xl h-screen items-center">
-      <div className="bg-black h-screen flex flex-col justify-center items-center w-full">
-        <h1 className="text-white text-7xl font-lato">
+    <div className="flex flex-col md:flex-row justify-center text-2xl h-screen items-center">
+      <div className=" bg-black flex flex-col justify-center items-center  w-full sm:h-full md:h-screen">
+        <h1 className="sm:text-7xl text-white text-7xl font-lato text-center mt-40 md:mt-0">
           Join the universe Music!
         </h1>
-
         <div className="p-3">
-          <img src={astronaut} alt="" className="rounded-full h-80 w-80" />
+          <img
+            src={astronaut}
+            alt="Astronaut"
+            className="rounded-full h-80 w-80 sm:h-80 sm:w-80"
+          />
         </div>
 
-        <p className="text-white mt-2 font">
+        <p className="text-white mt-2 font py-5 text-center">
           Get access to your personal library!
         </p>
       </div>
 
-      <div className=" bg-green-900 h-screen flex items-center w-full justify-center">
+      <div className=" bg-green-900 flex items-center w-full sm:h-full md:h-screen h-screen justify-center py-8 ">
         <form
           onSubmit={handleSubmit}
-          className="p-4 max-w-md rounded-md border font-lato"
+          className="p-4 max-w-md rounded-md  font-lato mx-auto"
         >
           <h2 className="text-white flex justify-center mb-2">Register</h2>
           <input
             type="text"
             placeholder="name"
-            className="border w-full p-2 px-3 rounded-lg mb-2"
+            className="w-full p-2 px-3 rounded-lg mb-2"
             onChange={handleChange}
             name="name"
             value={user.name}
             autoFocus
+            required
           />
           <input
-            type="text"
+            type="email"
             placeholder="email"
             className="border w-full p-2 px-3 rounded-lg mb-2"
             onChange={handleChange}
             name="email"
             value={user.email}
+            required
           />
           <input
             type="text"
@@ -78,6 +83,7 @@ const Register = () => {
             onChange={handleChange}
             name="password"
             value={user.password}
+            required
           />
           <div className="flex justify-center">
             <button

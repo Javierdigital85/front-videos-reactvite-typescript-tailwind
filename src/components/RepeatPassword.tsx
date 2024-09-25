@@ -3,6 +3,9 @@ import image from "../assets/repeatpassword.avif";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
+import openEye from "../assets/OpenEye.svg";
+import closeEye from "../assets/Eye.svg";
+
 const URL = import.meta.env.VITE_BACKEND_URL;
 const RepeatPassword = () => {
   const navigate = useNavigate();
@@ -12,9 +15,18 @@ const RepeatPassword = () => {
     newPassword: "",
   });
 
+  const [eye, setEye] = useState(false);
+  const [eyeTwo, setEyeTwo] = useState(false);
+
+  const handleEye = () => {
+    setEye(!eye);
+  };
+  function handleEyeTwo() {
+    setEyeTwo(!eyeTwo);
+  }
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(e.target.value);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -47,36 +59,59 @@ const RepeatPassword = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="flex justify-center text-white bg-slate-900 w-full h-screen items-center">
-        <img src={image} alt="astronauts playing guitar" />
+    <div className="flex flex-col md:flex-row justify-evenly items-center h-screen">
+      <div className="flex justify-center w-full items-center">
+        <img
+          className="rounded-full"
+          src={image}
+          alt="astronauts playing guitar"
+        />
       </div>
 
-      <div className="w-full flex justify-center">
+      <div className="flex justify-center  w-full">
         <form
           onSubmit={handleSubmit}
-          className="border flex flex-col max-w-xl w-full p-4 rounded-md "
+          className="border flex flex-col  max-w-2xl w-full p-4 rounded-md md:ml-5"
         >
           <h1 className="text-white text-center mb-2 text-3xl">
             Reset your password
           </h1>
-          <input
-            name="password"
-            onChange={handleInputChange}
-            value={formData.password}
-            type="password"
-            placeholder="password"
-            className="mb-3 p-2 rounded-md"
-            autoFocus
-          />
-          <input
-            name="newPassword"
-            onChange={handleInputChange}
-            value={formData.newPassword}
-            type="password"
-            placeholder="newPassword"
-            className="p-2 rounded-md"
-          />
+
+          <div className="relative">
+            <input
+              name="password"
+              onChange={handleInputChange}
+              value={formData.password}
+              type={eye ? "text" : "password"}
+              placeholder="password"
+              className="mb-3 p-2 rounded-lg w-full px-3"
+              autoFocus
+            />
+            <div
+              className="absolute inset-y-1 right-0 pr-3 mb-3 flex items-center"
+              onClick={handleEye}
+            >
+              {eye ? <img src={openEye} /> : <img src={closeEye} />}
+            </div>
+          </div>
+
+          <div className="relative">
+            <input
+              name="newPassword"
+              onChange={handleInputChange}
+              value={formData.newPassword}
+              type={eyeTwo ? "text" : "password"}
+              placeholder="newPassword"
+              className="mb-3 p-2 rounded-lg w-full px-3"
+            />
+            <div
+              className="absolute inset-y-1 right-0 pr-3 mb-3 flex items-center"
+              onClick={handleEyeTwo}
+            >
+              {eyeTwo ? <img src={openEye} /> : <img src={closeEye} />}
+            </div>
+          </div>
+
           <button className="text-white mt-2 bg-blue-500 hover:bg-blue-600 p-3 rounded-md">
             Send
           </button>
