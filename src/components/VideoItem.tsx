@@ -29,7 +29,7 @@ const VideoItem = ({ video, loadVideo }: Props) => {
   const videoId = getYoutubeVideoId(video.url);
 
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden mt-5">
       <div className="p-4 rounded-lg">
         <div className="flex justify-between">
           <h2 className="text-xl font-bold mb-2">{video.title}</h2>

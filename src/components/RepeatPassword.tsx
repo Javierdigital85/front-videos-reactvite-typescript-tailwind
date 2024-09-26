@@ -73,7 +73,7 @@ const RepeatPassword = () => {
           onSubmit={handleSubmit}
           className="border flex flex-col  max-w-2xl w-full p-4 rounded-md md:ml-5"
         >
-          <h1 className="text-white text-center mb-2 text-3xl">
+          <h1 className="text-white text-center mb-2 text-3xl font-poppins">
             Reset your password
           </h1>
 
@@ -84,7 +84,7 @@ const RepeatPassword = () => {
               value={formData.password}
               type={eye ? "text" : "password"}
               placeholder="password"
-              className="mb-3 p-2 rounded-lg w-full px-3"
+              className="mb-3 p-2 rounded-lg w-full px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 font-poppins"
               autoFocus
             />
             <div
@@ -102,7 +102,7 @@ const RepeatPassword = () => {
               value={formData.newPassword}
               type={eyeTwo ? "text" : "password"}
               placeholder="newPassword"
-              className="mb-3 p-2 rounded-lg w-full px-3"
+              className="mb-3 p-2 rounded-lg w-full px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 font-poppins"
             />
             <div
               className="absolute inset-y-1 right-0 pr-3 mb-3 flex items-center"
@@ -112,7 +112,7 @@ const RepeatPassword = () => {
             </div>
           </div>
 
-          <button className="text-white mt-2 bg-blue-500 hover:bg-blue-600 p-3 rounded-md">
+          <button className="text-white mt-2 bg-blue-500 hover:bg-blue-600 p-3 rounded-md font-poppins">
             Send
           </button>
         </form>

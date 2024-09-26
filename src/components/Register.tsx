@@ -35,8 +35,8 @@ const Register = () => {
   return (
     <div className="flex flex-col md:flex-row justify-center text-2xl h-screen items-center">
       <div className=" bg-black flex flex-col justify-center items-center  w-full sm:h-full md:h-screen">
-        <h1 className="sm:text-7xl text-white text-7xl font-lato text-center mt-40 md:mt-0">
-          Join the universe Music!
+        <h1 className="sm:text-7xl text-white text-7xl font-poppins text-center mt-40 md:mt-0">
+          Videos Online App
         </h1>
         <div className="p-3">
           <img
@@ -46,7 +46,7 @@ const Register = () => {
           />
         </div>
 
-        <p className="text-white mt-2 font py-5 text-center">
+        <p className="text-white mt-2 font py-5 text-center font-poppins">
           Get access to your personal library!
         </p>
       </div>
@@ -56,11 +56,11 @@ const Register = () => {
           onSubmit={handleSubmit}
           className="p-4 max-w-md rounded-md  font-lato mx-auto"
         >
-          <h2 className="text-white flex justify-center mb-2">Register</h2>
+          <h2 className="text-white flex justify-center mb-2 font-poppins">Register</h2>
           <input
             type="text"
             placeholder="name"
-            className="w-full p-2 px-3 rounded-lg mb-2"
+            className="w-full p-2 px-3 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-poppins"
             onChange={handleChange}
             name="name"
             value={user.name}
@@ -70,7 +70,7 @@ const Register = () => {
           <input
             type="email"
             placeholder="email"
-            className="border w-full p-2 px-3 rounded-lg mb-2"
+            className="border w-full p-2 px-3 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-poppins"
             onChange={handleChange}
             name="email"
             value={user.email}
@@ -79,7 +79,7 @@ const Register = () => {
           <input
             type="text"
             placeholder="password"
-            className="border w-full p-2 px-3 rounded-lg mb-2"
+            className="border w-full p-2 px-3 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-poppins"
             onChange={handleChange}
             name="password"
             value={user.password}
@@ -88,7 +88,7 @@ const Register = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className="border bg-blue-600 p-2 hover:bg-blue-500 rounded-md text-white w-full"
+              className="border bg-blue-600 p-2 hover:bg-blue-500 rounded-md text-white w-full font-poppins"
             >
               Send
             </button>

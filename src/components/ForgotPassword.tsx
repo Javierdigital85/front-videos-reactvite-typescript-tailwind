@@ -41,19 +41,19 @@ const ForgotPassword = () => {
         onSubmit={handleSubmit}
         className="border p-4 rounded-md flex flex-col w-full max-w-2xl md:ml-5"
       >
-        <h1 className="mb-2 text-white">Recover your password!</h1>
+        <h1 className="mb-2 text-white font-poppins">Recover your password!</h1>
         <input
           type="email"
           placeholder="email"
           name="email"
-          className="w-full px-3 p-2 mb-4 rounded-md"
+          className="w-full px-3 p-2 mb-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-poppins"
           onChange={handleChange}
           value={user.email}
           autoFocus
         />
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-600 mt-2 p-2 rounded-md"
+          className="bg-blue-500 hover:bg-blue-600 mt-2 p-2 rounded-md font-poppins text-white"
         >
           Send
         </button>

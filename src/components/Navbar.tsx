@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 const URL = import.meta.env.VITE_BACKEND_URL;
 interface User {
   id: number;
+  name: string;
 }
 interface RootState {
   user: User;
@@ -58,6 +59,7 @@ const Navbar = () => {
     ? [
         { newVideo: "Create New Video", path: "/video-form" },
         { newVideo: "Log out", path: "/", onClick: logout },
+        { newVideo: `Welcome ${user.name} !`, path: "/videolist" },
       ]
     : [
         { newVideo: "Register", path: "/register" },
@@ -102,7 +104,11 @@ const Navbar = () => {
       </div>
       {/* pantallas pequeñas */}
       {navbarOpen ? (
-        <NavbarMenu links={navLinks} setNavbarOpen={setNavbarOpen} logout={logout}/>
+        <NavbarMenu
+          links={navLinks}
+          setNavbarOpen={setNavbarOpen}
+          logout={logout}
+        />
       ) : null}
     </nav>
   );

@@ -74,7 +74,7 @@ const VideoForm = () => {
           className="w-full max-w-lg p-8 rounded-lg shadow-md border bg-slate-300"
           onSubmit={handleSubmit}
         >
-          <h3 className="text-2xl font-semibold mb-6 flex justify-center">
+          <h3 className="text-2xl font-semibold mb-6 flex justify-center font-poppins">
             {videoId ? "Update Video" : "Create a Video"}
           </h3>
           <div className="mb-4">
@@ -84,7 +84,7 @@ const VideoForm = () => {
               onChange={handleChange}
               name="title"
               placeholder="Write a title"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-poppins"
               autoFocus
             />
           </div>
@@ -95,7 +95,7 @@ const VideoForm = () => {
               onChange={handleChange}
               name="url"
               placeholder="Insert url"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500  font-poppins"
             />
           </div>
           <div>
@@ -104,7 +104,7 @@ const VideoForm = () => {
               onChange={handleChange}
               name="description"
               placeholder="Write a description"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500  font-poppins"
             />
           </div>
           <button

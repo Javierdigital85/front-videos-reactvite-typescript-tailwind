@@ -47,14 +47,14 @@ const Login = () => {
   return (
     <div className="flex flex-col justify-center text-2xl h-screen items-center mt-10">
       <div className="bg-black h-screen flex flex-col justify-center items-center w-full mb-10">
-        <h1 className="text-white text-4xl md:text-8xl font-lato text-center mt-20">
-          Welcome to universe Music!
+        <h1 className="text-white text-4xl md:text-8xl font-poppins text-center mt-20">
+          Welcome to Videos Online App
         </h1>
         <div className="p-3">
           <img src={astronaut} alt="" className="rounded-full h-80 w-80" />
         </div>
-        <p className="text-white mt-2 font text-center">
-          Once registered you can Sign up and start storing your videos.
+        <p className="text-white mt-2 font-poppins text-center">
+          Once registered you can Sign up and start storing your videos from urls.
         </p>
       </div>
       <div className=" bg-green-900 h-screen flex items-center w-full justify-center">
@@ -62,13 +62,13 @@ const Login = () => {
           onSubmit={handleSubmit}
           className="p-4 rounded-md font-lato h-96 max-w-3xl w-full"
         >
-          <h2 className="text-white flex justify-center mb-3 text-6xl">
+          <h2 className="text-white flex justify-center mb-5 text-6xl font-poppins">
             Sign Up
           </h2>
           <input
             type="email"
             placeholder="email"
-            className="w-full p-2 rounded-lg mb-3"
+            className="w-full p-2 rounded-lg mb-3 font-poppins px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
             name="email"
             onChange={handleChange}
             autoFocus
@@ -78,7 +78,7 @@ const Login = () => {
             <input
               type={eye ? "text" : "password"}
               placeholder="password"
-              className="border w-full p-2 px-3 rounded-lg mb-3"
+              className="border w-full p-2 px-3 rounded-lg mb-3 font-poppins focus:outline-none focus:ring-2 focus:ring-blue-500"
               name="password"
               onChange={handleChange}
               required
@@ -94,13 +94,13 @@ const Login = () => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className=" bg-blue-600 p-2 hover:bg-blue-500 rounded-md text-white w-full"
+              className=" bg-blue-600 p-2 hover:bg-blue-500 rounded-md text-white w-full font-poppins"
             >
               Send
             </button>
           </div>
           <div className="mt-2">
-            <Link to={"forgot-password"} className="text-white">
+            <Link to={"forgot-password"} className="text-white font-poppins">
               Forgot password?
             </Link>
           </div>

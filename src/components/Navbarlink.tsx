@@ -9,7 +9,7 @@ interface Props {
 
 const Navbarlink = ({ link, linkTo, setNavbarOpen, onClick }: Props) => {
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    //cierra el menú cuando se hace clic en un enlace en pantallas pequeñas 
+    //cierra el menú cuando se hace clic en un enlace en pantallas pequeñas
     if (setNavbarOpen) {
       setNavbarOpen(false);
     }
@@ -20,7 +20,9 @@ const Navbarlink = ({ link, linkTo, setNavbarOpen, onClick }: Props) => {
   return (
     <Link
       to={linkTo}
-      className="block py-1 pl-3 pr-4 sm:text-xl rounded text-white hover:font-extralight"
+      className={`block py-2 pl-3 pr-4 sm:text-xl rounded text-white hover:text-blue-500 ${
+        link.includes("Welcome") ? "text-blue-300" : ""
+      }`}
       onClick={handleClick}
     >
       {link}
