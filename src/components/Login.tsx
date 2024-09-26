@@ -45,9 +45,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center text-2xl h-screen items-center mt-10">
-      <div className="bg-black h-screen flex flex-col justify-center items-center w-full mb-10">
-        <h1 className="text-white text-4xl md:text-8xl font-poppins text-center mt-20">
+    <div className="flex flex-col justify-center text-2xl h-screen items-center mt-20">
+      <div className="bg-black h-screen flex flex-col justify-center items-center w-full mb-10 mt-10">
+        <h1 className="text-white text-4xl md:text-8xl font-poppins text-center">
           Welcome to Videos Online App
         </h1>
         <div className="p-3">

@@ -33,7 +33,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center text-2xl h-screen items-center">
+    <div className="flex flex-col md:flex-row justify-center text-2xl h-screen items-center mt-5">
       <div className=" bg-black flex flex-col justify-center items-center  w-full sm:h-full md:h-screen">
         <h1 className="sm:text-7xl text-white text-7xl font-poppins text-center mt-40 md:mt-0">
           Videos Online App
