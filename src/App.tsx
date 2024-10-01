@@ -8,14 +8,17 @@ import "react-toastify/dist/ReactToastify.css";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { setUser } from "./redux/user";
 import ForgotPassword from "./components/ForgotPassword";
 import RepeatPassword from "./components/RepeatPassword";
+import { Video } from "./interfaces/Video";
 
 function App() {
   const dispatch = useDispatch();
+  const [searchResult, setSearchResult] = useState<Video[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
     const userName = async () => {
@@ -32,16 +35,31 @@ function App() {
     userName();
   }, [dispatch]);
 
+  const clearSearch = () => {
+    setSearchResult([]);
+    setIsSearching(false);
+  };
+
   return (
     <>
       <div>
         <BrowserRouter>
           <ToastContainer />
-          <Navbar />
+          <Navbar clearSearch={clearSearch} />
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/videolist" element={<VideoList />} />
+            <Route
+              path="/videolist"
+              element={
+                <VideoList
+                  searchResult={searchResult}
+                  isSearching={isSearching}
+                  setSearchResult={setSearchResult}
+                  setIsSearching={setIsSearching}
+                />
+              }
+            />
             <Route path="/video-form" element={<VideoForm />} />
             <Route path="/video-form/:id" element={<VideoForm />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />

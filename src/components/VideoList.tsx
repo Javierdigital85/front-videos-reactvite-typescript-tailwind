@@ -4,6 +4,8 @@ import { Video } from "../interfaces/Video";
 import VideoItem from "./VideoItem";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Search from "./Search";
+
 const URL = import.meta.env.VITE_BACKEND_URL;
 interface User {
   id: number;
@@ -13,7 +15,19 @@ interface RootState {
   user: User;
 }
 
-const VideoList = () => {
+interface VideoProps {
+  searchResult: Video[];
+  isSearching: boolean;
+  setSearchResult: (videos: Video[]) => void;
+  setIsSearching: (searching: boolean) => void;
+}
+
+const VideoList = ({
+  searchResult,
+  isSearching,
+  setSearchResult,
+  setIsSearching,
+}: VideoProps) => {
   const user = useSelector((state: RootState) => state.user);
   const userId = user.id;
   const [videos, setVideos] = useState<Video[]>([]);
@@ -39,15 +53,22 @@ const VideoList = () => {
     loadVideos();
   }, [loadVideos]);
 
+  const handleSearchResult = (result: Video[]) => {
+    console.log("Resultados de búsqueda:", result); // Verifica los resultados
+    setSearchResult(result); //guardamos los resultados en el estado
+    setIsSearching(result.length > 0);
+  };
+
   return (
     <div className="container mx-auto mt-5 p-10">
+      <Search onSearchResult={handleSearchResult} />
       {loading ? (
         <p className="text-gray-500 flex items-center justify-center h-screen text-xl">
           Loading videos...
         </p>
       ) : videos.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
-          {videos.map((video) => (
+          {(isSearching ? searchResult : videos).map((video) => (
             <VideoItem video={video} key={video.id} loadVideo={loadVideos} />
           ))}
         </div>
@@ -69,12 +90,3 @@ const VideoList = () => {
 };
 
 export default VideoList;
-// try {
-//   const res = await axios.get(`${URL}/api/videos/videos`);
-//   setVideos(res.data);
-//   console.log(res.data);
-// } catch (error) {
-//   console.log(error);
-// } finally {
-//   setLoading(false);
-// }

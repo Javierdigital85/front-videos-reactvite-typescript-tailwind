@@ -19,7 +19,11 @@ interface RootState {
   user: User;
 }
 
-const Navbar = () => {
+interface NavbarProps {
+  clearSearch: () => void;
+}
+
+const Navbar = ({ clearSearch }: NavbarProps) => {
   const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -69,7 +73,9 @@ const Navbar = () => {
   return (
     <nav className="fixed mx-auto border border-[#33353F] top-0 left-0 right-0 z-10 bg-[#263285] bg-opacity-100">
       <div className="container mx-auto items-center flex justify-between text-white text-2xl shadow-lg p-2 font-lato">
-        <div>{user.id ? <Link to={"/videolist"}>Home</Link> : ""}</div>
+        <div onClick={clearSearch}>
+          {user.id ? <Link to={"/videolist"}>Home</Link> : ""}
+        </div>
         {/* pantalla chica */}
         <div className="block md:hidden">
           {!navbarOpen ? (
