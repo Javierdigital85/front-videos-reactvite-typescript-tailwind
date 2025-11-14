@@ -53,6 +53,7 @@ const VideoList = ({
     loadVideos();
   }, [loadVideos]);
 
+  //handleSearchResult se encarga de enseñar los resultados
   const handleSearchResult = (result: Video[]) => {
     console.log("Resultados de búsqueda:", result); // Verifica los resultados
     setSearchResult(result); //guardamos los resultados en el estado

@@ -4,19 +4,66 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "@justinribeiro/lite-youtube";
 import LiteYoutube from "./LiteYoutube";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setFavs } from "../redux/favs";
 
 const URL = import.meta.env.VITE_BACKEND_URL;
 interface Props {
   video: Video;
-  loadVideo: () => void;
+  loadVideo?: () => void;
+  loadFav?: () => void;
 }
 
-const VideoItem = ({ video, loadVideo }: Props) => {
+interface User {
+  id: number;
+  name: string;
+}
+
+interface Favs {
+  id: number;
+  videoId: number;
+}
+
+interface RootState {
+  user: User;
+  favoritos: Favs[];
+}
+
+const VideoItem = ({ video, loadVideo, loadFav }: Props) => {
+  const user = useSelector((state: RootState) => state.user);
+  const favs = useSelector((state: RootState) => state.favoritos);
+  console.log(favs, "showme your value");
+  const userId = user.id;
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // Identificar el `favId` del video específico en favoritos
+  const favItem = favs.find((fav) => fav.videoId === video.id);
+  const favId = favItem?.id;
+
+  const handleDeleteFav = async (favId: number) => {
+    console.log("handleDeleteFav called with favId:", favId);
+    try {
+      await axios.delete(`${URL}/api/fav/delete/${favId}`);
+      if (loadFav) {
+        loadFav(); // Llamamos a loadFav si está definido
+      }
+      toast.success("favs Deleted!");
+      console.log("llega la eliminación?????");
+    } catch (error) {
+      console.log("Error removing favourite:", error);
+    }
+  };
+
   const handleDelete = async (id: number) => {
     await axios.delete(`${URL}/api/videos/video/${id}`);
-    loadVideo();
+    if (loadVideo) {
+      loadVideo(); // Llamamos a loadVideo si está definido
+    }
     toast.success("Video Deleted!");
+    console.log("llega??");
   };
 
   // Función para extraer el ID del video desde la URL de YouTube
@@ -27,6 +74,20 @@ const VideoItem = ({ video, loadVideo }: Props) => {
     return match ? match[1] : null;
   };
   const videoId = getYoutubeVideoId(video.url);
+
+  const handleClick = async () => {
+    try {
+      const res = await axios.post(`${URL}/api/fav/register`, {
+        userId: userId,
+        videoId: video.id,
+      });
+
+      dispatch(setFavs([...favs, res.data]));
+      toast.success("Video added to favourites!");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden mt-5">
@@ -40,11 +101,24 @@ const VideoItem = ({ video, loadVideo }: Props) => {
             >
               ✏️
             </span>
-            <span
-              onClick={() => video.id && handleDelete(video.id)}
-              className="text-red-500 hover:font-medium cursor-pointer"
-            >
-              x
+            {favId ? (
+              <span
+                onClick={() => favId && handleDeleteFav(favId)}
+                className="text-red-500 hover:font-medium cursor-pointer"
+              >
+                x
+              </span>
+            ) : (
+              <span
+                onClick={() => video.id && handleDelete(video.id)}
+                className="text-red-500 hover:font-medium cursor-pointer"
+              >
+                x
+              </span>
+            )}
+
+            <span onClick={handleClick} className="cursor-pointer">
+              💙
             </span>
           </div>
         </div>

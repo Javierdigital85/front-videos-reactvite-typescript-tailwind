@@ -10,10 +10,13 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../redux/user";
 import { MouseEvent } from "react";
 import { toast } from "react-toastify";
+import { extractUserDetails } from "../services/auth";
+
 const URL = import.meta.env.VITE_BACKEND_URL;
 interface User {
   id: number;
   name: string;
+  picture?: string; // Nueva propiedad para la imagen de perfil
 }
 interface RootState {
   user: User;
@@ -28,6 +31,9 @@ const Navbar = ({ clearSearch }: NavbarProps) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [navbarOpen, setNavbarOpen] = useState(false);
+
+  // Obtén los detalles del usuario desde las cookies
+  const userDetails = extractUserDetails();
 
   const logout = async (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -61,6 +67,7 @@ const Navbar = ({ clearSearch }: NavbarProps) => {
 
   const navLinks = user.id
     ? [
+        { newVideo: "Favs", path: "/favs" },
         { newVideo: "Create New Video", path: "/video-form" },
         { newVideo: "Log out", path: "/", onClick: logout },
         { newVideo: `Welcome ${user.name} !`, path: "/videolist" },
@@ -106,6 +113,18 @@ const Navbar = ({ clearSearch }: NavbarProps) => {
               />
             ))}
           </ul>
+          {userDetails?.picture && (
+            <div className="ml-4 flex items-center">
+              <img
+                src={userDetails.picture}
+                alt="Profile"
+                className="h-10 w-10 rounded-full border-2 border-white"
+              />
+              <span className="ml-2 text-sm text-white">
+                {userDetails.name}
+              </span>
+            </div>
+          )}
         </div>
       </div>
       {/* pantallas pequeñas */}

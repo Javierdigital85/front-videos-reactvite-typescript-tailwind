@@ -1,0 +1,1 @@
+<!-- el componente Login le falta el vue en los inputs , chequear como esta funcionando este componente-->

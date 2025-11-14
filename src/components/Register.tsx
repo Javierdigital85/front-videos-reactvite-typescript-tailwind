@@ -56,7 +56,9 @@ const Register = () => {
           onSubmit={handleSubmit}
           className="p-4 max-w-md rounded-md  font-lato mx-auto"
         >
-          <h2 className="text-white flex justify-center mb-2 font-poppins">Register</h2>
+          <h2 className="text-white flex justify-center mb-2 font-poppins">
+            Register
+          </h2>
           <input
             type="text"
             placeholder="name"

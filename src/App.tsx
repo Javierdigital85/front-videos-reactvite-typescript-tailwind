@@ -14,6 +14,7 @@ import { setUser } from "./redux/user";
 import ForgotPassword from "./components/ForgotPassword";
 import RepeatPassword from "./components/RepeatPassword";
 import { Video } from "./interfaces/Video";
+import Favs from "./components/Favs";
 
 function App() {
   const dispatch = useDispatch();
@@ -67,6 +68,7 @@ function App() {
               path="/repeat-password/:token"
               element={<RepeatPassword />}
             />
+            <Route path="/favs" element={<Favs />} />
           </Routes>
         </BrowserRouter>
       </div>
